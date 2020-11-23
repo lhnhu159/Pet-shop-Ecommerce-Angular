@@ -1,0 +1,29 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Admin</a></li>
+    <li class="breadcrumb-item"><a routerLink="/admin/category">Category</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Update Category</li>
+  </ol>
+</nav>
+<div class="row">
+    <div class="col-md-7 mx-auto">
+      <div class="alert alert-success" role="alert" *ngIf="succupd">
+        Update category successfully!
+      </div>
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">Update category</h3>
+            </div>
+            <div class="card-body">
+        <form #updatecategory="ngForm" (ngSubmit)="Updatecategory(updatecategory.value)"  role="form">
+            <div class="form-group">
+              <label>Category name</label>
+              <input type="text" class="form-control" name="category_name" ngModel="{{cate_name}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Category</button>
+          </form>
+          </div>
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,178 @@
+<div class="container-fluid" style="margin-bottom: 30px;">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/cart">Cart</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Order</li>
+      </ol>
+    </nav>
+<div style="margin-bottom:80px" *ngIf="!paymentmethod">
+    <div class="row">
+        <div class="col-sm-9">
+            <form [formGroup]="orderForm" (ngSubmit)="OrderInfo()">
+            <h1><strong>THÔNG TIN ĐẶT HÀNG</strong></h1>
+            <hr>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
+                                    <label for="">Email</label>
+                                    <input name="email" type="email" formControlName="email" class="form-control rounded-0" ngModel="{{user.email}}">
+                                </div>
+                                <div class="form-group" *ngIf="isSubmitted && formControls.email.errors">
+                                    <div *ngIf="formControls.email.errors.required">Email is required!</div>
+                                </div>
+                                <div class="form-group" [ngClass]="{ 'has-error': isSubmitted && formControls.name.errors }">
+                                    <label for="">Name</label>
+                                    <input name="name" type="text" formControlName="name" class="form-control rounded-0" ngModel={{user.name}}>
+                                </div>
+                                <div class="form-group" *ngIf="isSubmitted && formControls.name.errors">
+                                    <div *ngIf="formControls.name.errors.required">Name is required!</div>
+                                </div>
+                                <div class="form-group" [ngClass]="{ 'has-error': isSubmitted && formControls.phone.errors }">
+                                    <label for="">Phone</label>
+                                    <input name="phone" type="text" formControlName="phone" class="form-control rounded-0" ngModel="{{user.phone}}">
+                                </div>
+                                <div class="form-group" *ngIf="isSubmitted && formControls.phone.errors">
+                                    <div *ngIf="formControls.phone.errors.required">Phone is required!</div>
+                                </div>
+                                <div class="form-group" [ngClass]="{ 'has-error': isSubmitted && formControls.address.errors }">
+                                    <label for="">Adress</label>
+                                    <input name="address" formControlName="address" type="text" class="form-control rounded-0" ngModel="{{user.address}}">
+                                </div>
+                                <div class="form-group" *ngIf="isSubmitted && formControls.address.errors">
+                                    <div *ngIf="formControls.address.errors.required">Address is required!</div>
+                                </div>
+                                  
+                            </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="">Ghi chú đơn hàng</label>
+                                <textarea class="form-control" formControlName="note" name="note" id="exampleFormControlTextarea1" rows="9"></textarea>
+                            </div>
+                           
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                <button type="submit" class="btn btn-success" style="width: 100px; height: 30px;">ĐẶT HÀNG</button>
+            </div>
+              </div>
+            </form>
+        </div> 
+        <div class="col-sm-3">
+            <h1><strong>ĐƠN HÀNG</strong></h1>
+          <div class="card">
+              <div class="card-body">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Tạm tính</th>
+                      <td scope="col">{{total|number:'3.0-5'}}đ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">SHIP</th>
+                      <td>Free</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Thuế</th>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><h2>TỔNG CỘNG</h2></th>
+                      <th><h2>{{total|number:'3.0-5'}}đ</h2></th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+        </div>
+    </div>
+</div>
+<div style="margin-bottom:80px" *ngIf="paymentmethod">
+    <div class="row">
+<div class="col-sm-9">
+    <div class="row">
+        <div class="col-sm-5 mx-auto">
+    <div class="card" >
+        <div class="card-header">
+          CHỌN PHƯƠNG THỨC THANH TOÁN
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="paymethod">Payment Method</label>
+                <select #paymethod name="paymethod" class="form-control" ngModel (ngModelChange)="chooseMethod(paymethod.value)">
+                  <option value="1">Thanh toán khi nhận hàng</option>
+                  <option value="2">Stripe Payment</option>
+                </select>
+              </div>
+            <div *ngIf="hasStripe">
+                <form novalidate (ngSubmit)="Payment()" [formGroup]="stripeTest">
+                    <input type="text" formControlName="name" placeholder="Name">
+                    <ngx-stripe-card
+                      [options]="cardOptions"
+                      [elementsOptions]="elementsOptions"
+                    ></ngx-stripe-card>
+                    <button type="submit" class="btn btn-success">PAYMENT</button>
+                  </form>
+            </div>
+            <button type="button" class="btn btn-success" (click)="Paynomal()" *ngIf="!hasStripe">ĐẶT HÀNG</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-sm-3">
+        <h1><strong>ĐƠN HÀNG</strong></h1>
+      <div class="card">
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Tạm tính</th>
+                  <td scope="col">{{total|number:'3.0-5'}}đ</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">SHIP</th>
+                  <td>Free</td>
+                </tr>
+                <tr>
+                  <th scope="row">Thuế</th>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <th scope="row"><h2>TỔNG CỘNG</h2></th>
+                  <th><h2>{{total|number:'3.0-5'}}đ</h2></th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,132 @@
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Order List</li>
+    </ol>
+  </nav>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Oder ID</th>
+          <th scope="col">User ID</th>
+          <th scope="col">Total</th>
+          <th scope="col">Ngày đặt</th>
+          <th scope="col">Tình trạng</th>
+          <th scope="col">Chi tiết</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orderlist; index as i" style="height: 100px;">
+          <ng-container *ngFor="let status of status">
+            <ng-container *ngIf="status.cart_id==order.status">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ order.order_id }}</td>
+              <td>{{order.user_id}}</td>
+              <td>{{ order.total|number:'3.0-5'}}đ</td>
+              <td>{{ order.created_at|date}}</td>
+              <td>{{status.status_name}}</td>
+              <td><button type="button" class="btn btn-outline-info" (click)=viewdetail(order.order_id,order.user_id)>
+                  <fa-icon [icon]="view" class="mx-2"> Edit</fa-icon>
+                </button></td>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="container" style="margin-bottom: 100px;" *ngIf="hasdetail">
+    <div class="row">
+      <div class="col-sm-7">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">TÊN SẢN PHẨM</th>
+              <th scope="col">SỐ LƯỢNG</th>
+              <th scope="col">GIÁ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detail of detail;index as i">
+              <th scope="row">{{i+1}}</th>
+              <ng-container *ngFor="let product of product">
+                <ng-container *ngIf="detail.product_id==product.product_id">
+                  <td>{{product.product_name}}</td>
+                  <td>{{detail.amount}}</td>
+                  <td>{{detail.price}}</td>
+                </ng-container>
+              </ng-container>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <th><h2>TOTAL</h2></th>
+              <th><h2>{{total}}</h2></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-5">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3><strong>THÔNG TIN ĐƠN HÀNG</strong></h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Order ID</th>
+                  <th scope="col">{{orderbyid.order_id}}</th>
+                </tr>
+                <tr>
+                  <th scope="col">Tên người nhận</th>
+                  <td scope="col">{{orderbyid.name}}</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Ngày đặt hàng</th>
+                  <td>{{orderbyid.created_at|date}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Địa chỉ</th>
+                  <td>{{orderbyid.address}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Số điện thoại</th>
+                  <td>{{orderbyid.phone}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td>{{orderbyid.email}}</td>
+                </tr>
+                <tr>
+                  <ng-container *ngFor="let method1 of method">
+                    <ng-container *ngIf="method1.paymentmethod_id==orderbyid.payment_method">
+                      <th scope="row">Phương thức thanh toán</th>
+                      <td>{{method1.paymentmethod_name}}</td>
+                    </ng-container>
+                  </ng-container>
+                </tr>
+                <tr>
+                  <th scope="row">TOTAL</th>
+                  <th>{{total}}</th>
+                </tr>
+                <tr>
+                    <ng-container *ngFor="let status1 of status">
+                      <ng-container *ngIf="status1.cart_id==orderbyid.status">
+                        <th scope="row">Tình trạng đơn hàng</th>
+                        <th>{{status1.status_name}}</th>
+                      </ng-container>
+                    </ng-container>
+                  </tr>
+              </tbody>
+            </table>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

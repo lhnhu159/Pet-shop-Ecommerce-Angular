@@ -1,0 +1,66 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+  </ol>
+</nav>
+<div class="container" style="margin-top:30px;margin-bottom: 100px;">
+
+    <div class="row">
+      <div class="col-sm-5">
+       <img src="{{prodetails.product_image}}" width="100%">
+      </div>
+      <div class="col-sm-7">
+        <div class="card">
+          <div class="card-body">
+          <h1>{{prodetails.product_name}}</h1>
+        <h1><strong>{{prodetails.price|number:'3.0-5'}}đ</strong></h1>
+        <h1>Số lượng</h1>
+        <div class="input-group">
+          <input type="button" value="-" class="button-minus" (click)=minus()>
+          <input type="number" name="quantity" class="quantity-field" [(ngModel)]="inputnumber" >
+          <input type="button" value="+" class="button-plus" data-field="quantity" (click)=plus()>
+        </div>
+        <br><br><br>
+        <button type="button" class="btn btn-outline-primary float-right" (click)=Addtocart() style="width:200px;height:50px;font-size:16px">Add to cart</button>
+      </div> 
+      </div>
+        
+      </div>
+
+    <div class="row mt-5">
+        <div class="card">
+            <div class="card-header">
+             <h3> MÔ TẢ SẢN PHẨM</h3>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">{{prodetails.description}}</h2>
+            </div>
+          </div>
+    </div>
+  </div>
+  <h1 style="margin-top:20px">Sản phẩm liên quan</h1>
+  <hr>
+  <div class="row" style="margin-top: 20px;" >
+  <div class="col-sm-3" *ngFor="let product of cate|paginate:{itemsPerPage:3,currentPage:p}">
+    <div class="card mb-5">
+      <img src="{{product.product_image}}" class="card-img-top" alt="...">
+      <div class="card-body" style="text-align: center;">
+        <a [routerLink]="['/product-details',product.product_id]">
+          <h3 class="card-title" style="height: 35px;">{{product.product_name}}</h3>
+        </a>
+        <h3 class="card-title" style="color: #0059b3;"> <strong>{{product.price|number:'3.0-5'}}đ</strong></h3>
+        <button type="button" class="btn btn-primary btn-lg" (click)=Addtocart(product.product_id)
+          style="width: 100px;height: 30px;font-size: 14px;" *ngIf="product.quantity!=0">Add to cart</button>
+          <h3 class="card-title" style="color:crimson;" *ngIf="product.quantity==0"> <strong>Hết hàng</strong></h3>  
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<div class="row">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+  </div>
+

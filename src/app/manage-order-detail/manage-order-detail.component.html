@@ -1,0 +1,77 @@
+<div class="col-sm-9 sidenav">
+    <div class="row">
+        <div class="col-sm-7">
+          <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">STT</th>
+                  <th scope="col">TÊN SẢN PHẨM</th>
+                  <th scope="col">SỐ LƯỢNG</th>
+                  <th scope="col">GIÁ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detail of detail;index as i">
+                  <th scope="row">{{i+1}}</th>
+                  <ng-container *ngFor="let product of product">
+                    <ng-container *ngIf="detail.product_id==product.product_id">
+                  <td>{{product.product_name}}</td>
+                  <td>{{detail.amount}}</td>
+                  <td>{{detail.price}}</td>
+                    </ng-container>
+                  </ng-container>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>TOTAL</td>
+                    <td>abc</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-header">
+                  <h3><strong>THÔNG TIN ĐƠN HÀNG</strong></h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">Tên người nhận</th>
+                            <th scope="col">anc</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Ngày đặt hàng</th>
+                            <td>abc</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Địa chỉ</th>
+                            <td>abc</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Số điện thoại</th>
+                            <td>abc</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Email</th>
+                            <td>abc</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Phương thức thanh toán</th>
+                            <td>abc</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Tình trạng đơn hàng</th>
+                            <td>abc</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    
+                </div>
+              </div>
+        </div>
+</div>

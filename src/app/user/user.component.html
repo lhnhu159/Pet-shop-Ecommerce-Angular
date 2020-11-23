@@ -1,0 +1,44 @@
+<div class="container" style="margin-bottom: 100px;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+      </nav>    
+    <div class="row mx-auto" >
+            <div class="col-12 col-lg-12">
+                <div class="panel panel-default mx-auto">
+                    <div class="panel-heading">  <h4 >User Profile</h4></div>
+                    <div class="panel-body">
+                        <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+                            <img alt="User Pic" src="assets/img/unnamed.png" id="profile-image1" class="img-circle img-responsive">   
+                        </div>
+                        <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8" >
+                            <div class="container" >
+                            <h2>{{user.name}}</h2>
+                            <b> Customer</b>
+                            
+                            
+                            </div>
+                            <hr>
+                            <ul class="container details" >
+                            <li><p><fa-icon [icon]="phone" class="mx-2"> Phone</fa-icon>{{user.phone}}</p></li>
+                            <li><p><fa-icon [icon]="mail" class="mx-2"> Mail</fa-icon>{{user.email}}</p></li>
+                            <li><p><fa-icon [icon]="address" class="mx-2"> Phone</fa-icon>{{user.address}}</p></li>
+                            </ul>
+                            <hr>
+                            
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+           
+        </div>
+        <div class="row mx-auto">
+            <div class="col-sm-10"></div>
+            <div class="col-sm-2">
+                <a routerLink="/edit-user"><button type="button" class="btn btn-info" style="width: 130px;height: 40px;font-size: 16px;">Edit Profile</button></a>
+            </div>
+        </div>
+        </div>

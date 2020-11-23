@@ -1,0 +1,48 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Product</li>
+  </ol>
+</nav>
+<div class="col-sm-9">
+    <button mat-stroked-button color="primary" style="float: right;"><a routerLink="/admin/add-product">Add Product</a></button>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Image</th>
+    <th scope="col">Desc</th>
+    <th scope="col">Price</th>
+    <th scope="col">Category</th>
+    <th scope="col">Brand</th>
+    <th scope="col" colspan="2" style="text-align: center;">Manage</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of product|paginate:{itemsPerPage:5,currentPage:p}; index as i" style="height: 100px;">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ product.product_name }}</td>
+    <td><img src="{{ product.product_image}}" width="100px"></td>
+    <td>{{ product.description }}</td>
+    <td>{{ product.price}}</td>
+    <ng-container *ngFor="let category of category">
+    <ng-container *ngIf="category.category_id==product.category_id">
+    <td>{{ category.category_name }}</td>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngFor="let brand of brand">
+    <ng-container *ngIf="brand.brand_id==product.brand_id">
+    <td>{{ brand.brand_name }}</td>
+    </ng-container>
+  </ng-container>
+    <td><a [routerLink]="['/admin/edit-product', product.product_id]" (click)="onEditproduct(product)"><button type="button" class="btn btn-warning"><fa-icon [icon]="faEdit">Edit</fa-icon>Edit</button></a></td>
+    <td><button type="button" class="btn btn-danger" (click)="deleteProduct(product.product_id)">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<router-outlet></router-outlet>
+

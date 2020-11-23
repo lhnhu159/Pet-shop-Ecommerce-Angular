@@ -1,0 +1,50 @@
+<div class="container login-container" *ngIf="!hasCode">
+    <div class="row">
+        <div class="col-md-6 login-form-1 mx-auto">
+            <h3 style="font-size: 30px;">Register</h3>
+            <form name="Register" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+                <div class="form-group" [ngClass]="{ 'has-error': isSubmitted && formControls.name.errors }">
+                    <input type="text" class="form-control" style="height: 30px;" formControlName="name" placeholder="Name *" name="name">
+                </div>
+                <div class="form-group" *ngIf="isSubmitted && formControls.name.errors" class="help-block">
+                    <div *ngIf="formControls.name.errors.required">Name is required</div>
+                  </div>
+                <div class="form-group" [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }">
+                    <input type="email" class="form-control" formControlName="email" style="height: 30px;" placeholder="Your Email *" name="email">
+                </div>
+                <div class="form-group" *ngIf="isSubmitted && formControls.email.errors" class="help-block">
+                    <div *ngIf="formControls.email.errors.required">Email is required</div>
+                  </div>
+                <div class="form-group" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+                    <input type="password" name="password" formControlName="password" style="height: 30px;" class="form-control" placeholder="Your Password *">
+                </div>
+                <div class="form-group" *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+                    <div *ngIf="formControls.password.errors.required">Password is required</div>
+                  </div>
+                <div class="form-group text-center">
+                    <input type="submit" class="btnSubmit" value="Register" >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container login-container" *ngIf="hasCode">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <h1 style="text-align: center;">XÁC THỰC EMAIL</h1>
+            <form name="Confirm" [formGroup]="confirmEmail" (ngSubmit)="confirm()">
+                <div class="form-group" [ngClass]="{ 'has-error': isSubmittedcode && formControls1.code.errors }">
+                    <input type="text" class="form-control" style="height: 30px;" formControlName="code" placeholder="ENTER CODE *" name="name">
+                </div>
+                <div class="form-group" *ngIf="isSubmittedcode && formControls1.code.errors" class="help-block">
+                    <div *ngIf="formControls1.code.errors.required">Code is required</div>
+                  </div>
+                  <div class="form-group text-center">
+                    <input type="submit" class="btn btn-success" value="Confirm" >
+                    <input type="button" (click)="Resend()" style="margin:2rem" class="btn btn-primary" value="Resend">
+                    <input type="button" (click)="back()" class="btn btn-secondary" value="Back" >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

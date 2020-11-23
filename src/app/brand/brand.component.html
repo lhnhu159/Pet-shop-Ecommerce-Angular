@@ -1,0 +1,44 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Brand</li>
+  </ol>
+</nav>
+<div class="col-sm-9 sidenav">
+    <br>
+    <button mat-stroked-button color="primary" style="float: right"><a routerLink="/admin/add-brand"> Add Brand</a></button>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Brand Name</th>
+    <th scope="col">Category</th>
+    <th scope="col" colspan="2">Manage</th>
+  </tr>
+  </thead>
+    <tbody>
+        <ng-container *ngFor="let brand of brandpd|paginate:{itemsPerPage:5,currentPage:p}; index as i">
+        <ng-container *ngFor="let category of categorypd">
+        <ng-container *ngIf="category.category_id==brand.category">
+        <tr>
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ brand.brand_name }}</td>
+          <td>
+              <div>{{category.category_name}}</div>
+          </td>
+          <td><a [routerLink]="['/admin/edit-brand',brand.brand_id]"><button type="button" class="btn btn-warning"><fa-icon [icon]="faEdit">Edit</fa-icon>Edit</button></a></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteBrand(brand.brand_id)" >Delete</button></td>
+        
+        </tr>
+    </ng-container>
+    </ng-container>
+</ng-container>
+        </tbody>    
+  
+  
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<router-outlet></router-outlet>
+

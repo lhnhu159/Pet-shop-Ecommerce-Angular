@@ -1,0 +1,37 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Admin</a></li>
+    <li class="breadcrumb-item"><a routerLink="/admin/brand">Brand</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create brand</li>
+  </ol>
+</nav>
+<div class="row">
+    <div class="col-md-7 mx-auto">
+      <div class="alert alert-success" role="alert" *ngIf="successbrand">
+        Create brand successfully!
+      </div>
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">Create brand</h3>
+            </div>
+            <div class="card-body">
+        <form #addBrand="ngForm" (ngSubmit)="Addbrand(addBrand.value)" role="form">
+            <div class="form-group">
+              <label>Brand name</label>
+              <input type="text" class="form-control" name="brand_name" ngModel>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" name="category_id" ngModel>
+                  <option *ngFor="let category of categorypd" value={{category.category_id}}>{{category.category_name}}</option>
+                </select>
+              </div>
+            <button type="submit" class="btn btn-primary">Add Brand</button>
+          </form>
+          </div>
+        </div>
+    </div>
+    </div>
+
+

@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Brand</li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Brand</a>
+          </li>
+          <li class="nav-item" *ngFor="let brand of brand">
+            <a class="nav-link" (click)=probybrand(brand.brand_id) [ngStyle]="{'color':brand_id != brand.brand_id ? 'blue' : 'black' }" disabled="brand_id==brand.brand_id">{{brand.brand_name}}</a>
+          </li>
+        </ul>
+      </div>
+      </div>
+      <div class="col-sm-9">
+      <h1><strong>{{brandname}}</strong></h1>
+      <hr>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let product of productbybrand|paginate:{itemsPerPage:5,currentPage:p}">
+          <div class="card mb-5">
+            <img src="{{product.product_image}}" class="card-img-top" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <a [routerLink]="['/product-details',product.product_id]">
+                <h3 class="card-title" style="height: 35px;">{{product.product_name}}</h3>
+              </a>
+              <h3 class="card-title" style="color: #0059b3;"> <strong>{{product.price|number:'3.0-5'}}đ</strong></h3>
+              <button type="button" class="btn btn-primary btn-lg" (click)=Addtocart(product.product_id)
+                style="width: 100px;height: 30px;font-size: 14px;">Add to cart</button>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br><br>

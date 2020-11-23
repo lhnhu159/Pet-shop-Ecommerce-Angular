@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card bg-light">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link active"><strong>Category</strong></a>
+        </li>
+        <li class="nav-item" *ngFor="let category of category">
+          <a class="nav-link" [routerLink]="['/productbycate',category.category_id]">{{category.category_name}}</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div class="col-sm-9" >
+      <h1><strong>Danh sách sản phẩm</strong></h1>
+      <hr>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let product of product|paginate:{itemsPerPage:10,currentPage:p}">
+          <div class="card mb-5">
+            <img src="{{product.product_image}}" class="card-img-top" alt="...">
+            <div class="card-body" style="text-align: center;">
+              <a [routerLink]="['/product-details',product.product_id]">
+                <h3 class="card-title" style="height: 35px;">{{product.product_name}}</h3>
+              </a>
+              <h3 class="card-title" style="color: #0059b3;"> <strong>{{product.price|number:'3.0-5'}}đ</strong></h3>
+              <button type="button" class="btn btn-primary btn-lg" (click)=Addtocart(product.product_id)
+                style="width: 100px;height: 30px;font-size: 14px;" *ngIf="product.quantity!=0">Add to cart</button>
+                <h3 class="card-title" style="color:crimson;" *ngIf="product.quantity==0"> <strong>Hết hàng</strong></h3>  
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,31 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/admin/dashboard">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Category</li>
+  </ol>
+</nav>
+<div class="col-sm-9 mx-auto">
+    <button mat-stroked-button color="primary" style="float: right"><a routerLink="/admin/add-category"> Create category</a></button>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Created at</th>
+    <th scope="col" colspan="2">Manage</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let category of category|paginate:{itemsPerPage:5,currentPage:p}; index as i" style="height: 50px;">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ category.category_name }}</td>
+    <td>{{ category.created_at|date}}</td>
+    <td><a [routerLink]="['/admin/edit-category',category.category_id]"><button type="button" class="btn btn-warning"><fa-icon [icon]="faEdit">Edit</fa-icon>Edit</button></a></td>
+    <td><button type="button" class="btn btn-danger"  (click)="deleteCategory(category.category_id)"><fa-icon [icon]="faTrashAlt">Edit</fa-icon>Delete</button></td>
+  </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<router-outlet></router-outlet>

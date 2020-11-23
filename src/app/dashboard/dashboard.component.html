@@ -1,0 +1,35 @@
+<div class="col-sm-9">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card-counter primary">
+          <fa-icon [icon]="pro" class="mx-2"> database</fa-icon>
+          <span class="count-numbers">{{product}}</span>
+          <span class="count-name">Product</span>
+        </div>
+      </div>
+  
+      <div class="col-md-3">
+        <div class="card-counter danger">
+          <fa-icon [icon]="bill" class="mx-2"> database</fa-icon>
+          <span class="count-numbers">{{order}}</span>
+          <span class="count-name">Order</span>
+        </div>
+      </div>
+  
+      <div class="col-md-3">
+        <div class="card-counter success">
+          <fa-icon [icon]="database" class="mx-2"> database</fa-icon>
+          <span class="count-numbers">{{total|number:'3.0-5'}}đ</span>
+          <span class="count-name">Total</span>
+        </div>
+      </div>
+  
+      <div class="col-md-3">
+        <div class="card-counter info">
+          <fa-icon [icon]="user1" class="mx-2"> database</fa-icon>
+          <span class="count-numbers">{{user}}</span>
+          <span class="count-name">Users</span>
+        </div>
+      </div>
+    </div>
+  </div>

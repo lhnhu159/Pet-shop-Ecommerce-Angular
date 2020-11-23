@@ -1,0 +1,73 @@
+<div class="container-fluid" style="margin-top:30px;margin-bottom: 30px;">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Cart</li>
+    </ol>
+  </nav>
+    <div class="row">
+      <div class="col-sm-9">
+        <h1><strong>GIỎ HÀNG</strong></h1>
+        <hr>
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">SẢN PHẨM</th>
+                <th scope="col">TÊN SẢN PHẨM</th>
+                <th scope="col">GIÁ</th>
+                <th scope="col">SỐ LƯỢNG</th>
+                <th scope="col">XÓA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cart of cart;index as i">
+                <th scope="row">{{i+1}}</th>
+                <td><img src="{{cart.image}}" width="150"></td>
+                <td>{{cart.name}}</td>
+                <td>{{cart.price|number:'3.0-5'}}đ</td>
+                <td><input type="text" [(ngModel)]="cart.quatity" (ngModelChange)=updateQty($event,cart.id) style="font-size: 16px;width: 50px;"></td>
+                <td><button type="button" class="btn btn-danger" (click)=Deleteproduct(cart.id)><fa-icon [icon]="delete">Delete</fa-icon></button></td>
+              </tr>
+            </tbody>
+        </table>
+        <hr>
+        <button type="button" class="btn btn-primary float-right" (click)=loadCart() style="width: 150px;height: 40px;font-size: 16px;" *ngIf="hascart">Update cart</button>
+        <button type="button" class="btn btn-light float-right" style="width: 150px;height: 40px;font-size: 16px;" (click)=Removeall() *ngIf="hascart">Remove all Item</button>
+      </div>
+      <div class="col-sm-3">
+          <h1><strong>ĐƠN HÀNG</strong></h1>
+          <hr>
+        <div class="card">
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Tạm tính</th>
+                    <th scope="col">{{total|number:'3.0-5'}}đ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">SHIP</th>
+                    <td>Free</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Thuế</th>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><h2>TỔNG CỘNG</h2></th>
+                    <th><h2>{{total|number:'3.0-5'}}đ</h2></th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer text-center">
+              <a routerLink="/order"><button type="button" class="btn btn-success" style="width: 150px;height: 40px;font-size: 16px">ĐẶT HÀNG</button></a>
+            </div>
+          </div>
+
+      </div>
+    </div>
+    </div>
